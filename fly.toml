@@ -1,0 +1,16 @@
+app = "gotenberg-yourapp" # 改成你要的名稱
+
+[build]
+image = "gotenberg/gotenberg:8" # 官方提供的 Docker image
+
+[env]
+DISABLE_GOOGLE_CHROME = "1" # 如果你只需要 LibreOffice，可啟用這個環境變數
+
+[http_service]
+internal_port = 3000
+force_https = true
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 3000
+  ports = [{ handlers = ["http"], port = 80 }, { handlers = ["tls", "http"], port = 443 }]
